@@ -1,9 +1,12 @@
+import Link from 'next/link'
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-      Hello index page here from children route 
+      <h1>Hello index page here from children route</h1>
+
+      <Link href="/another">go to another page route</Link>
     </div>
   )
 }
