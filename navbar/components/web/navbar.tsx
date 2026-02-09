@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { buttonVariants } from "../ui/button";
 
 export function Navbar() {
   //components need no default keyword as this is not a full on routes and only a component
@@ -26,8 +27,8 @@ export function Navbar() {
       </div>
       {/* Button */}
       <div className="flex items-center gap-2"> {/* further right */}
-        <Link href="/auth/sign-up">Sign up</Link>
-        <Link href="/auth/login">Login</Link>
+        <Link className={buttonVariants()} href="/auth/sign-up">Sign up</Link>
+        <Link className={buttonVariants({variant: "secondary"})} href="/auth/login">Login</Link>
       </div> 
     </nav>
   );
