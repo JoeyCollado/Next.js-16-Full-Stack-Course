@@ -9,7 +9,10 @@ export default async function BlogId({params}: BlogIdPageProps){
     return (
         <div>
             Hello, from dynamic blog page
-            <p>{blogId}</p>
+            <p>Blog id: {blogId}</p>
         </div>
     )
 }
+
+//dynamic name route should be spelled correctly
+//for example here [blogId] = {blogId}
