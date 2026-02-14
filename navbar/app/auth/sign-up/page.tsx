@@ -18,6 +18,10 @@ export default function SignUpPage(){
       }, 
     });  
 
+    function onSubmit(){
+      console.log("Yippe")
+    }
+
     return (
         <Card> {/* container */}
             <CardHeader> {/* header */}
@@ -29,11 +33,11 @@ export default function SignUpPage(){
                 </CardDescription>
             </CardHeader>
             <CardContent> {/* content */}
-               <form>
-                <FieldGroup>
+               <form onSubmit={form.handleSubmit(onSubmit)}>
+                <FieldGroup className="gap-y-4">
                   {/* name */}
                   <Controller name="name" control={form.control} render={({field, fieldState}) => (
-                    <Field>
+                    <Field aria-invalid={fieldState.invalid}>
                       <FieldLabel>Full Name</FieldLabel>
                       <Input placeholder="John Doe" {...field}/>
                       {fieldState.invalid && ( //if there's an error render
@@ -43,7 +47,7 @@ export default function SignUpPage(){
                   )}/>
                   {/* email */}
                   <Controller name="email" control={form.control} render={({field, fieldState}) => (
-                    <Field>
+                    <Field aria-invalid={fieldState.invalid}>
                       <FieldLabel>Email</FieldLabel>
                       <Input placeholder="john@doe.com" type="password" {...field}/>
                       {fieldState.invalid && ( //if there's an error render
@@ -53,7 +57,7 @@ export default function SignUpPage(){
                   )}/>
                   {/* password */}
                   <Controller name="password" control={form.control} render={({field, fieldState}) => (
-                    <Field>
+                    <Field aria-invalid={fieldState.invalid}>
                       <FieldLabel>Password</FieldLabel>
                       <Input placeholder="johnDoePassword" type="email" {...field}/>
                       {fieldState.invalid && ( //if there's an error render
