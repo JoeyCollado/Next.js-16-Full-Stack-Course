@@ -1,5 +1,6 @@
 "use client";
 import { signUpSchema } from "@/app/schemas/auth";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -30,6 +31,7 @@ export default function SignUpPage(){
             <CardContent> {/* content */}
                <form>
                 <FieldGroup>
+                  {/* name */}
                   <Controller name="name" control={form.control} render={({field, fieldState}) => (
                     <Field>
                       <FieldLabel>Full Name</FieldLabel>
@@ -39,6 +41,30 @@ export default function SignUpPage(){
                       )}
                     </Field>
                   )}/>
+                  {/* email */}
+                  <Controller name="email" control={form.control} render={({field, fieldState}) => (
+                    <Field>
+                      <FieldLabel>Email</FieldLabel>
+                      <Input placeholder="john@doe.com" type="password" {...field}/>
+                      {fieldState.invalid && ( //if there's an error render
+                        <FieldError errors={[fieldState.error]}/>
+                      )}
+                    </Field>
+                  )}/>
+                  {/* password */}
+                  <Controller name="password" control={form.control} render={({field, fieldState}) => (
+                    <Field>
+                      <FieldLabel>Password</FieldLabel>
+                      <Input placeholder="johnDoePassword" type="email" {...field}/>
+                      {fieldState.invalid && ( //if there's an error render
+                        <FieldError errors={[fieldState.error]}/>
+                      )}
+                    </Field>
+                  )}/>
+                  
+                <Button>
+                  Sign up
+                </Button>
                 </FieldGroup>
                </form>
             </CardContent> 
