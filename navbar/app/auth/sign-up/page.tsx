@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
+import z from "zod";
 
 export default function SignUpPage(){
 
@@ -18,8 +20,12 @@ export default function SignUpPage(){
       }, 
     });  
 
-    function onSubmit(){
-      console.log("Yippe")
+    async function onSubmit(data: z.infer<typeof signUpSchema>){
+      await authClient.signUp.email({
+        email: data.email,
+        name: data.name,
+        password: data.password
+      })
     }
 
     return (
@@ -49,7 +55,7 @@ export default function SignUpPage(){
                   <Controller name="email" control={form.control} render={({field, fieldState}) => (
                     <Field aria-invalid={fieldState.invalid}>
                       <FieldLabel>Email</FieldLabel>
-                      <Input placeholder="john@doe.com" type="password" {...field}/>
+                      <Input placeholder="john@doe.com" type="email" {...field}/>
                       {fieldState.invalid && ( //if there's an error render
                         <FieldError errors={[fieldState.error]}/>
                       )}
@@ -59,7 +65,7 @@ export default function SignUpPage(){
                   <Controller name="password" control={form.control} render={({field, fieldState}) => (
                     <Field aria-invalid={fieldState.invalid}>
                       <FieldLabel>Password</FieldLabel>
-                      <Input placeholder="johnDoePassword" type="email" {...field}/>
+                      <Input placeholder="johnDoePassword" type="password" {...field}/>
                       {fieldState.invalid && ( //if there's an error render
                         <FieldError errors={[fieldState.error]}/>
                       )}
