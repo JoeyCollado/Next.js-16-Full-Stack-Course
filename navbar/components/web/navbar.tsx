@@ -1,8 +1,12 @@
+"use client";
 import Link from "next/link";
-import { buttonVariants } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
 import { ThemeToggle } from "./theme-toggle";
+import { useConvexAuth } from "convex/react";
+import { authClient } from "@/lib/auth-client";
 
 export function Navbar() {
+  const { isAuthenticated, isLoading } = useConvexAuth();
   //components need no default keyword as this is not a full on routes and only a component
   return (
     <nav className="flex items-center w-full py-5 justify-between">
@@ -21,19 +25,41 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           {" "}
           {/* right */}
-          <Link className={buttonVariants({variant: "ghost"})} href="/home">Home</Link>
-          <Link className={buttonVariants({variant: "ghost"})} href="/blog">Blog</Link>
-          <Link className={buttonVariants({variant: "ghost"})} href="/create">Create</Link>
+          <Link className={buttonVariants({ variant: "ghost" })} href="/home">
+            Home
+          </Link>
+          <Link className={buttonVariants({ variant: "ghost" })} href="/blog">
+            Blog
+          </Link>
+          <Link className={buttonVariants({ variant: "ghost" })} href="/create">
+            Create
+          </Link>
         </div>
       </div>
       {/* Button */}
-      <div className="flex items-center gap-2"> {/* further right */}
-        <Link className={buttonVariants()} href="/auth/sign-up">Sign up</Link>
-        <Link className={buttonVariants({variant: "secondary"})} href="/auth/login">Login</Link>
-
-        {/* Theme Toggle */}
-        <ThemeToggle/>
-      </div> 
+      <div className="flex items-center gap-2">
+        {isLoading ? null : isAuthenticated ? (
+          <Button onClick={() => authClient.signOut({
+            
+          })}>Logout</Button>
+        ) : (
+          <>
+            {" "}
+            {/* further right */}
+            <Link className={buttonVariants()} href="/auth/sign-up">
+              Sign up
+            </Link>
+            <Link
+              className={buttonVariants({ variant: "secondary" })}
+              href="/auth/login"
+            >
+              Login
+            </Link>
+            {/* Theme Toggle */}
+          </>
+        )}
+        <ThemeToggle />
+      </div>
     </nav>
   );
 }
