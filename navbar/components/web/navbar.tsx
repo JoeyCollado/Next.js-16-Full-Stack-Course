@@ -4,6 +4,7 @@ import { Button, buttonVariants } from "../ui/button";
 import { ThemeToggle } from "./theme-toggle";
 import { useConvexAuth } from "convex/react";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 
 export function Navbar() {
   const { isAuthenticated, isLoading } = useConvexAuth();
@@ -40,7 +41,14 @@ export function Navbar() {
       <div className="flex items-center gap-2">
         {isLoading ? null : isAuthenticated ? (
           <Button onClick={() => authClient.signOut({
-            
+            fetchOptions: {
+              onSuccess: () => {
+                toast.success("Logged out successfully")
+              },
+              onError: (error) => {
+                toast.error(error.error.message)
+              }
+            }
           })}>Logout</Button>
         ) : (
           <>
