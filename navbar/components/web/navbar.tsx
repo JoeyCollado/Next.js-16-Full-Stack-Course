@@ -5,9 +5,11 @@ import { ThemeToggle } from "./theme-toggle";
 import { useConvexAuth } from "convex/react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function Navbar() {
   const { isAuthenticated, isLoading } = useConvexAuth();
+  const router = useRouter();
   //components need no default keyword as this is not a full on routes and only a component
   return (
     <nav className="flex items-center w-full py-5 justify-between">
@@ -44,6 +46,7 @@ export function Navbar() {
             fetchOptions: {
               onSuccess: () => {
                 toast.success("Logged out successfully")
+                router.push("/") //redirect users to index page after toast success notification
               },
               onError: (error) => {
                 toast.error(error.error.message)
