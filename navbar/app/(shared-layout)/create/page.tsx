@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { postSchema } from "@/app/schemas/blog";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,12 +19,18 @@ import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/convex/_generated/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "convex/react";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { title } from "process";
+import { useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import z from "zod";
 
 const CreateRoute = () => {
-  const mutation = useMutation(api.posts.createPost)
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const mutation = useMutation(api.posts.createPost);
   const form = useForm({
     //setting up react hook form
     resolver: zodResolver(postSchema), //this will validate our data against the zod schema
@@ -34,12 +40,17 @@ const CreateRoute = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof postSchema>){
-    //call mutation
-    mutation({
-      body: values.content,
-      title: values.title,
-    })
+  function onSubmit(values: z.infer<typeof postSchema>) {
+    startTransition(() => {
+      //call mutation
+      const result = mutation({
+        body: values.content,
+        title: values.title,
+      });
+      toast.success('Blog successfully created!')
+
+      router.push('/')
+    });
   }
   return (
     <div className="py-12">
@@ -90,7 +101,16 @@ const CreateRoute = () => {
                   </Field>
                 )}
               />
-              <Button>Create Post</Button>
+               <Button disabled={isPending}>
+              {isPending ? (
+                <>
+                  <Loader2 className="size-4 animate-spin" />
+                  <span>Loading...</span>
+                </>
+              ) : (
+                <span>Create Post</span>
+              )}
+            </Button>
             </FieldGroup>
           </form>
         </CardContent>
