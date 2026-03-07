@@ -1,4 +1,5 @@
 "use client";
+import { createBlogAction } from "@/app/actions";
 import { postSchema } from "@/app/schemas/blog";
 import { Button } from "@/components/ui/button";
 import {
@@ -41,12 +42,16 @@ const CreateRoute = () => {
   });
 
   function onSubmit(values: z.infer<typeof postSchema>) {
-    startTransition(() => {
+    startTransition(async () => {
       //call mutation
+      /*
       const result = mutation({
         body: values.content,
         title: values.title,
       });
+      */
+     console.log("this runs on client side")
+     await createBlogAction();
       toast.success('Blog successfully created!')
 
       router.push('/')
