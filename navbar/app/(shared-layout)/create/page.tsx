@@ -51,7 +51,14 @@ const CreateRoute = () => {
       });
       */
      console.log("this runs on client side")
-     await createBlogAction();
+    //  await createBlogAction();
+    await fetch('/api/create-blog', {
+       //define method
+       method: 'POST',
+    }
+    ) //calling api endpoint
+
+    //executes after
       toast.success('Blog successfully created!')
 
       router.push('/')
