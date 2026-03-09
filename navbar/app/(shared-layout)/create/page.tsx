@@ -31,7 +31,6 @@ import z from "zod";
 const CreateRoute = () => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const mutation = useMutation(api.posts.createPost);
   const form = useForm({
     //setting up react hook form
     resolver: zodResolver(postSchema), //this will validate our data against the zod schema
@@ -43,25 +42,8 @@ const CreateRoute = () => {
 
   function onSubmit(values: z.infer<typeof postSchema>) {
     startTransition(async () => {
-      //call mutation
-      /*
-      const result = mutation({
-        body: values.content,
-        title: values.title,
-      });
-      */
      console.log("this runs on client side")
-    //  await createBlogAction();
-    await fetch('/api/create-blog', {
-       //define method
-       method: 'POST',
-    }
-    ) //calling api endpoint
-
-    //executes after
-      toast.success('Blog successfully created!')
-
-      router.push('/')
+    await createBlogAction(values);
     });
   }
   return (
