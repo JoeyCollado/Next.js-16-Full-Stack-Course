@@ -1,7 +1,9 @@
 "use client";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { api } from "@/convex/_generated/api";
 import { useQuery } from "convex/react";
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const BlogPage = () => {
@@ -20,7 +22,15 @@ const BlogPage = () => {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {data?.map((post) => (
           <Card key={post._id}>
-            <div></div>
+            <div className="relative h-48 w-full overflow-hidden">
+              <Image src="https://images.unsplash.com/photo-1773176647951-d8f618dee942?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" fill alt="blog image"/> {/* it's mandatory to put relative in parent component classname for the fill property of image to work as intended */}
+            </div>
+
+            <CardContent>
+              <Link href={`/blog${post._id}`}>
+              <h1 className="text-2xl font-bold hover:text-primary">{post.title}</h1>
+              </Link>
+            </CardContent>
           </Card>
         ))}
       </div>
