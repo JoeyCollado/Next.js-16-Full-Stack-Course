@@ -21,7 +21,7 @@ export function Navbar() {
         {/* left */}
         <Link href="/">
           <h1 className="text-3xl font-bold">
-            Next<span className="text-blue-500">Pro</span>
+            Next<span className="text-primary">Pro</span>
           </h1>
         </Link>
         {/* Links */}
