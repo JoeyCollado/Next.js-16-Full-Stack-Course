@@ -1,14 +1,15 @@
-"use client";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { api } from "@/convex/_generated/api";
-import { useQuery } from "convex/react";
+import { fetchQuery } from "convex/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const BlogPage = () => {
-  const data = useQuery(api.posts.getPosts);
+const BlogPage = async () => {
+
+  //fetching data on server side
+  const data = await fetchQuery(api.posts.getPosts) //by using this we will lose all reactivity
   return (
     <div>
       <div className="text-center pb-12">
