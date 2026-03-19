@@ -37,6 +37,7 @@ const CreateRoute = () => {
     defaultValues: {
       content: "",
       title: "",
+      image: undefined,
     },
   });
 
@@ -81,6 +82,7 @@ const CreateRoute = () => {
                   </Field>
                 )}
               />
+              
 
               <Controller
                 name="content"
@@ -95,6 +97,28 @@ const CreateRoute = () => {
                   </Field>
                 )}
               />
+
+              <Controller
+                name="image"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field>
+                    <FieldLabel>Image</FieldLabel>
+                    <Input aria-invalid={fieldState.invalid}
+                           placeholder="Blog Content" 
+                           type="file" 
+                           accept="image/*" 
+                           onChange={(event) => {
+                      const file = event.target.files?.[0];
+                      field.onChange(file);
+                    }}/>
+                    {fieldState.invalid && ( //if there's an error render
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+
                <Button disabled={isPending}>
               {isPending ? (
                 <>

@@ -4,7 +4,7 @@ import { authComponent } from "./auth";
 
 // Create a new post with the given body and title
 export const createPost = mutation({
-  args: { title: v.string(), body: v.string()}, //get title and body from client side with the typoe of string
+  args: { title: v.string(), body: v.string(), imageStorageId: v.id("_storage")}, //get title and body from client side with the typoe of string
   handler: async (ctx, args) => { //get business logic
     //only authenticated users can create blogs
     const user = await authComponent.safeGetAuthUser(ctx);
@@ -17,6 +17,7 @@ export const createPost = mutation({
         body: args.body,
         title: args.title,
         authorId: user._id,
+        imageStorageId: args.imageStorageId
     })
 
     return blogArticle;
@@ -30,5 +31,19 @@ export const getPosts = query({
     const posts = await ctx.db.query('posts').order("desc").collect(); //post
 
     return posts;
+  }
+})
+
+export const generateImageUploadUrl = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const user = await authComponent.safeGetAuthUser(ctx);
+
+    if(!user){ //check if user is authenticated
+      throw new ConvexError("Not Authenticated");
+  }
+
+  //upload image generate
+  return await ctx.storage.generateUploadUrl();
   }
 })
