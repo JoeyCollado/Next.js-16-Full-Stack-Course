@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
         protocol: "https",
         port: "",
+      },
+      {
+        hostname: 'giddy-dragon-31.convex.cloud',
+        protocol: 'https',
+        port: "",
       }
     ]
   }
