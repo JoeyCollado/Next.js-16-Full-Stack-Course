@@ -7,6 +7,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { Suspense } from "react";
 
+export const dynamic = "force-static";
+// 'auto', | 'force-dynamic | 'error' | force-static
+
 const BlogPage = () => {
   return (
     <div>
