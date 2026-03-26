@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import { getToken } from "@/lib/auth-server";
 // Import the Id type from your generated data model
 import { Id } from "@/convex/_generated/dataModel";
+import { revalidatePath } from "next/cache";
 
 export async function createBlogAction(
   values: z.infer<typeof postSchema>
@@ -50,11 +51,13 @@ export async function createBlogAction(
       },
       { token }
     );
+
     
   } catch (err) {
     console.error(err);
+    revalidatePath('/blog')
     return { error: "Failed to create post" };
   }
 
-  redirect("/");
+  redirect("/blog");
 }
