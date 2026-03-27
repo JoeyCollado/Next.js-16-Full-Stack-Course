@@ -71,7 +71,7 @@ async function LoadBlogList() {
               className={buttonVariants({
                 className: "w-full",
               })}
-              href={`/blog${post._id}`}
+              href={`/blog/${post._id}`}
             >
               Read more
             </Link>

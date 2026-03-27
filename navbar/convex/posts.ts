@@ -62,10 +62,14 @@ export const generateImageUploadUrl = mutation({
 //server function to render image with blog dynamic routes
 export const getPostById = query({
   args: {
-    postId: v.id("posts")
+    postId: v.id("posts"),
   },
   handler: async (ctx,args) => {
     const post = await ctx.db.get(args.postId);
+
+    if(!post){
+      return null;
+    }
 
     //generate image url
     const resolvedImageUrl = post?.imageStorageId !== undefined ? await ctx.storage.getUrl(post.imageStorageId) : null;
