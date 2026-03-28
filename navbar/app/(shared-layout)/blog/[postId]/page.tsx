@@ -1,4 +1,5 @@
 import { buttonVariants } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { fetchQuery } from "convex/nextjs";
@@ -22,7 +23,7 @@ export default async function PostIdRoute({params}: PostIdRouteProps){
     }
     return (
         <div className="max-w-3xl mx-auto py-8 px-4  animate-in fade-in duration-500 relative">
-            <Link className={buttonVariants({variant: "ghost"})} href="/blog">
+            <Link className={buttonVariants({variant: "outline", className: 'mb-4'})} href="/blog">
             <ArrowLeft className="size-4"/>
             Back to blog
             </Link>
@@ -30,6 +31,16 @@ export default async function PostIdRoute({params}: PostIdRouteProps){
             <div className="relative w-full h-100 mb-8 rounded-xl overflow-hidden shadow-sm">
               <Image src={post.imageUrl ?? "https://images.unsplash.com/photo-1773176647951-d8f618dee942?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} fill className="object-cover hover:scale-105 transition-transform duration-500" alt={post.title}/>
             </div>
+
+            <div className="space-y-4 flex flex-col">
+              <h1 className="text-4xl font-bold tracking-tight text-foreground">{post.title}</h1>
+
+              <p className="text-sm text-muted-foreground">Posted on: {new Date(post._creationTime).toLocaleDateString("en-US")}</p>
+            </div>
+
+            <Separator className="my-8"/>
+            <p className="text-lg leading-relaxed text-foreground/90 whitespace-nowrap">{post.body}</p>
+            <Separator className="my-8"/>
         </div>
     )
 }
