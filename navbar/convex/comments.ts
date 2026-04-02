@@ -2,6 +2,7 @@ import { ConvexError, v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { authComponent } from "./auth";
 
+//define query to get comment data
 export const getCommentsByPost = query({
   args: {
     postId: v.id("posts"),
@@ -17,6 +18,7 @@ export const getCommentsByPost = query({
   },
 });
 
+//mutate the data
 export const createComment = mutation({
     args: {
         body: v.string(),
