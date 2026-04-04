@@ -19,6 +19,7 @@ export default async function PostIdRoute({params}: PostIdRouteProps){
     const {postId} = await params;
     const post = await fetchQuery(api.posts.getPostById, {postId: postId});
 
+
     if(!post){
         return <div className="text-6xl font-extrabold text-red-500 py-20">No Post Found</div>
     }

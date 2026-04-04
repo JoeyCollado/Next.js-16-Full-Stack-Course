@@ -10,14 +10,15 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useParams } from "next/navigation";
 import { Id } from "@/convex/_generated/dataModel";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import z from "zod";
 import { toast } from "sonner";
 
 const CommentSection = () => {
-  const [isPending, startTransition] = useTransition();
   const params = useParams<{ postId: Id<"posts"> }>();
+  const data = useQuery(api.comments.getCommentsByPostId, {postId: params.postId})
+  const [isPending, startTransition] = useTransition();
   const createComment = useMutation(api.comments.createComment);
   const form = useForm({
     resolver: zodResolver(commentSchema),
@@ -31,6 +32,7 @@ const CommentSection = () => {
     startTransition(async () => {
       try {
         await createComment(data);
+        form.reset();
         toast.success("Comment posted successfully");
       } catch {
         toast.error("Failed to create post");
@@ -69,10 +71,11 @@ const CommentSection = () => {
                   <span>Loading...</span>
                 </>
               ) : (
-                <span>Signup</span>
+                <span>Comments</span>
               )}
             </Button>
           </form>
+
         </CardContent>
       </Card>
     </div>

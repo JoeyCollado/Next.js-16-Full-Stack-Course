@@ -3,7 +3,7 @@ import { mutation, query } from "./_generated/server";
 import { authComponent } from "./auth";
 
 //define query to get comment data
-export const getCommentsByPost = query({
+export const getCommentsByPostId = query({
   args: {
     postId: v.id("posts"),
   },
