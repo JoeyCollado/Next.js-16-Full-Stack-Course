@@ -3,7 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import CommentSection from "@/components/web/CommentSection";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { fetchQuery } from "convex/nextjs";
+import { fetchQuery, preloadQuery } from "convex/nextjs";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,6 +18,10 @@ export default async function PostIdRoute({params}: PostIdRouteProps){
 
     const {postId} = await params;
     const post = await fetchQuery(api.posts.getPostById, {postId: postId});
+    //preload query
+    const preloadedComments = await preloadQuery(api.comments.getCommentsByPostId, {
+        postId: postId,
+    });
 
 
     if(!post){
@@ -44,7 +48,7 @@ export default async function PostIdRoute({params}: PostIdRouteProps){
             <p className="text-lg leading-relaxed text-foreground/90 whitespace-nowrap">{post.body}</p>
             <Separator className="my-8"/>
 
-            <CommentSection/>
+            <CommentSection preloadedComments={preloadedComments}/>
         </div>
     )
 }
