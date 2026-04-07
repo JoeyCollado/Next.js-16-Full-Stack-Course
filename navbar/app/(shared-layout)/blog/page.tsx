@@ -3,6 +3,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
 import { fetchQuery } from "convex/nextjs";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Suspense } from "react";
@@ -17,6 +18,14 @@ export const dynamic = "force-static";
 // false | 0 | number
 
 //on demand revalidation, more on condition
+
+//static metadata
+export const  metadata: Metadata = {
+  title: "My Blog",
+  description: 'Read new blogs',
+  category: 'Web development',
+  authors: [{name: 'Joey'}],
+}
 
 const BlogPage = () => {
   return (

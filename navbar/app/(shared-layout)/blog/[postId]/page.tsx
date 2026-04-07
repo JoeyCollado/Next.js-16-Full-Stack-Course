@@ -5,6 +5,7 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { fetchQuery, preloadQuery } from "convex/nextjs";
 import { ArrowLeft } from "lucide-react";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,6 +14,14 @@ interface PostIdRouteProps{
         postId: Id<"posts">;
     }>;
 }
+
+//static metadata
+export const  metadata: Metadata = {
+    title: "My Blog",
+    description: 'Read new blogs',
+    category: 'Web development',
+    authors: [{name: 'Joey'}],
+  }
 
 export default async function PostIdRoute({params}: PostIdRouteProps){
 
