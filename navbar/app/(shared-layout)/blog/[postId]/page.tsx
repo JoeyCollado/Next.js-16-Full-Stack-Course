@@ -15,13 +15,23 @@ interface PostIdRouteProps{
     }>;
 }
 
-//static metadata
-export const  metadata: Metadata = {
-    title: "My Blog",
-    description: 'Read new blogs',
-    category: 'Web development',
-    authors: [{name: 'Joey'}],
+//dynamic metadata
+export async function generateMetadata({params}: PostIdRouteProps): Promise<Metadata>{
+  const {postId} = await params
+
+  const post = await fetchQuery(api.posts.getPostById, {postId: postId});
+
+  if(!post){
+    return {
+        title: 'Post not found',
+    };
   }
+
+  return{
+    title: post.title,
+    description: post.body
+  }
+}
 
 export default async function PostIdRoute({params}: PostIdRouteProps){
 
