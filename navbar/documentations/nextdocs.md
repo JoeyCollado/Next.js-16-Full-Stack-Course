@@ -14,3 +14,5 @@
 # loading.tsx = suspends everything even the static ones
 
 # streaming = suspends only selected parts 
+
+# https://www.convex.dev/components/presence
