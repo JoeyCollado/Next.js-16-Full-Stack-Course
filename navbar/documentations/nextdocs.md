@@ -16,3 +16,5 @@
 # streaming = suspends only selected parts 
 
 # https://www.convex.dev/components/presence
+
+#https://better-auth.com/docs/integrations/next#auth-protection

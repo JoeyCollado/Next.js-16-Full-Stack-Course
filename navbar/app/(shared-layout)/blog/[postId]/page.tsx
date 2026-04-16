@@ -10,6 +10,7 @@ import { ArrowLeft } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 interface PostIdRouteProps {
   params: Promise<{
@@ -45,8 +46,12 @@ export default async function PostIdRoute({ params }: PostIdRouteProps) {
     await preloadQuery(api.comments.getCommentsByPostId, {
       postId: postId,
     }),
-    await fetchQuery(api.presence.getUserId, {}, { token }) //fetch presence function getUserId
+    await fetchQuery(api.presence.getUserId, {}, { token }), //fetch presence function getUserId
   ]);
+
+  if(!userId){
+    return redirect("/auth/login") //multi layered authorization = check if user is authenticated using our proxy but also validate user session in the route itself
+  }
 
   if (!post) {
     return (
