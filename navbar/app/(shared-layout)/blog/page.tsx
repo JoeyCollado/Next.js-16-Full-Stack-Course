@@ -6,6 +6,7 @@ import { fetchQuery } from "convex/nextjs";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { connection } from "next/server";
 import React, { Suspense } from "react";
 
 export const dynamic = "force-static";
@@ -49,6 +50,7 @@ const BlogPage = () => {
 export default BlogPage;
 
 async function LoadBlogList() {
+  await connection(); //cache component config bug fix
   //fetching data on server side
   const data = await fetchQuery(api.posts.getPosts); //by using this we will lose all reactivity
 
