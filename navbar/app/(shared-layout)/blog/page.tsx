@@ -10,13 +10,13 @@ import Link from "next/link";
 import { connection } from "next/server";
 import React, { Suspense } from "react";
 
-export const dynamic = "force-static";
+// export const dynamic = "force-static";
 // 'auto', | 'force-dynamic | 'error' | force-static
 
 //revalidating data
 
 //time based revalidation, 30 is seconds
-export const revalidate = 30;
+// export const revalidate = 30;
 // false | 0 | number
 
 //on demand revalidation, more on condition
