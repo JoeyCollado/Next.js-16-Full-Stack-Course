@@ -17,4 +17,6 @@
 
 # https://www.convex.dev/components/presence
 
-#https://better-auth.com/docs/integrations/next#auth-protection
+# https://better-auth.com/docs/integrations/next#auth-protection
+
+# https://docs.convex.dev/production/hosting/vercel - how to host convex proj in vercel
