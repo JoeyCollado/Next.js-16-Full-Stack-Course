@@ -31,7 +31,8 @@ jobs:
           TYPO_CHANCE=20
           FILES=("activity/log.txt" "activity/notes.txt" "activity/history.md" "activity/dev-diary.txt" "*.js" "*.ts" "*.py")
 
-          COMMITS=$((1 + RANDOM % 5))
+          # Changed range from 1-5 to 1-2
+          COMMITS=$((1 + RANDOM % 2))
           echo "Planning $COMMITS commits..."
 
           for ((i=1; i<=$COMMITS; i++)); do
